@@ -1,0 +1,59 @@
+sudo apt-get update
+cd .ssh/
+ls  
+sudo cat id_rsa.pub
+sudo apt-get update
+cd .ssh/
+ls
+sudo nano authorized_keys
+sudo apt-get update
+cd .ssh/
+ls
+sudo nano authorized_keys
+sudo nano /etc/ansible/hosts
+[test]
+Slave1 ansible_host=172.31.41.48
+Slave2 ansible_host=172.31.43.238
+
+[prod]
+Slave3 ansible_host=172.31.43.185
+Slave4 ansible_host=172.31.41.169
+cd /etc/ansible/roles
+ls  
+sudo ansible-galaxy init test
+sudo ansible-galaxy init prod
+ls  
+cd test
+ls
+cd tasks
+ls
+sudo nano install.yaml
+- name: installing java
+apt: name=openjdk-18-jdk state=latest
+sudo nano main.yml
+- include_tasks: install.yaml
+cd prod/tasks
+ls
+sudo nano install.yaml
+- name: installing mysql
+apt: name=mysql-server state=latest
+sudo nano main.yml
+- include_tasks: install.yaml
+cd /etc/ansible
+sudo nano play5.yaml
+---
+- name: installing java on test group
+  hosts: test
+  become: true
+  roles:
+  - test
+- name: installing mysql on prod group
+  hosts: prod
+  become: true
+  roles:
+  - prod
+ansible-playbook play5.yaml --syntax-check
+ansible-playbook play5.yaml --check
+ansible-playbook play5.yaml
+java --version
+mysql --version 
