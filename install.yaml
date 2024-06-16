@@ -1,0 +1,5 @@
+- name: installing java
+apt: name=openjdk-18-jdk state=latest
+
+- name: installing mysql
+apt: name=mysql-server state=latest
