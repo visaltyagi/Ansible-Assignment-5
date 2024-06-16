@@ -1,0 +1,7 @@
+[test]
+Slave1 ansible_host=172.31.41.48
+Slave2 ansible_host=172.31.43.238
+
+[prod]
+Slave3 ansible_host=172.31.43.185
+Slave4 ansible_host=172.31.41.169
